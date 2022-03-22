@@ -24,8 +24,7 @@ def convert_trunc(query: str, fmt: str = None) -> str:
     return converted_query
     
 def load_trunc_example() -> str:
-    example_query = (
-    '''SELECT TRUNC(<my_col>)
+    example_query = '''SELECT TRUNC(<my_col>)
 FROM my_table''')
 
     return example_query
@@ -77,7 +76,7 @@ def run_all(query: str) -> str:
     -------
     converted_query: str   
     '''
-    converted_query = convert_trunc(query)
     converted_query = convert_to_number(converted_query)
+    converted_query = convert_trunc(query)
 
     return converted_query
