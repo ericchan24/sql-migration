@@ -25,7 +25,7 @@ def convert_trunc(query: str, fmt: str = None) -> str:
     
 def load_trunc_example() -> str:
     example_query = '''SELECT TRUNC(<my_col>)
-FROM my_table''')
+FROM my_table'''
 
     return example_query
 
@@ -37,7 +37,7 @@ def convert_to_number(query: str, fmt: str = None) -> str:
     https://www.youtube.com/watch?v=-qHg-uGhggE
     TO_NUMBER
     converts oracle sql syntax into netezza sql syntax
-    replaces TO_NUMBER(<col_name>) --> TO_NUMBER(<col_name>, <fmt>)
+    replaces TO_NUMBER(<col_name>) --> CAST(<col_name> AS <datatype>)
 
     Parameters
     ----------
@@ -49,7 +49,7 @@ def convert_to_number(query: str, fmt: str = None) -> str:
     converted_query: str
     '''
     # word boundary, to_number, whitespace, (, <col_name>, )
-    converted_query = re.sub(r"\bto_number\s*\((.+)\)", r"TO_NUMBER(\1, <fmt>)"
+    converted_query = re.sub(r"\bto_number\s*\((.+)\)", r"CAST(\1 AS <datatype>)"
         , query
         , count = 0
         , flags = re.IGNORECASE)
@@ -57,9 +57,8 @@ def convert_to_number(query: str, fmt: str = None) -> str:
     return converted_query
 
 def load_to_number_example() -> str:
-    example_query = (
-    '''SELECT TO_NUMBER(<my_col>)
-FROM my_table''')
+    example_query = '''SELECT TO_NUMBER(<my_col>)
+FROM my_table'''
 
     return example_query
 
@@ -76,7 +75,7 @@ def run_all(query: str) -> str:
     -------
     converted_query: str   
     '''
-    converted_query = convert_to_number(converted_query)
-    converted_query = convert_trunc(query)
+    converted_query = convert_to_number(query)
+    converted_query = convert_trunc(converted_query)
 
     return converted_query
