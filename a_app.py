@@ -22,10 +22,7 @@ default_query = ''
 if example == 'TO_NUMBER':
     default_query = utils.load_to_number_example()
     documentation = [
-        'https://www.ibm.com/docs/en/psfa/7.2.1?topic=extensions-conversion-functions'
-        , 'https://www.ibm.com/docs/en/psfa/7.2.1?topic=functions-template-patterns-datetime-conversions'
-        , 'https://www.databasestar.com/oracle-to_number/'
-        , 'https://www.youtube.com/watch?v=-qHg-uGhggE'
+        'https://www.ibm.com/docs/en/psfa/7.2.1?topic=constants-data-types-aliases'
         ]
 
 if example == 'TRUNC':
