@@ -94,11 +94,7 @@ def convert_to_number(query: str, fmt: str = None) -> str:
     https://www.ibm.com/docs/en/psfa/7.2.1?topic=constants-data-types-aliases
     TO_NUMBER
     converts oracle sql syntax into netezza sql syntax
-<<<<<<< HEAD
-    replaces TO_NUMBER(<col_name>) --> CAST(<col_name> AS <datatype>)
-=======
     replaces TO_NUMBER(<col_name>) --> CAST(<col_name> AS <DATATYPE>)
->>>>>>> 595db03c775cf171112cd2143ea83423fdf91755
 
     Parameters
     ----------
@@ -110,11 +106,7 @@ def convert_to_number(query: str, fmt: str = None) -> str:
     converted_query: str
     '''
     # word boundary, to_number, whitespace, (, <col_name>, )
-<<<<<<< HEAD
-    converted_query = re.sub(r"\bto_number\s*\((.+)\)", r"CAST(\1 AS <datatype>)"
-=======
     converted_query = re.sub(r"\bto_number\s*\((.+)\)", r"CAST(\1 AS <DATATYPE>)"
->>>>>>> 595db03c775cf171112cd2143ea83423fdf91755
         , query
         , count = 0
         , flags = re.IGNORECASE)
