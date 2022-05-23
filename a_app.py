@@ -12,6 +12,8 @@ st.title('Convert Oracle SQL Queries to Netezza SQL')
 # ---- SIDEBAR ----
 options = [
     ''
+    , 'dual'
+    , 'SYSDATE'
     , 'TO_NUMBER'
     , 'TRUNC']
 
@@ -19,13 +21,24 @@ example = st.sidebar.selectbox(label = 'Examples', options = options)
 
 default_query = ''
 
+if example == 'dual':
+    default_query = utils.load_dual_example()
+    documentation = [
+        'https://stackoverflow.com/questions/37850503/what-is-the-name-of-default-dual-table-in-netezza'
+        , 'https://dwgeek.com/netezza-dual-table-alternative.html'
+        ]
+
+if example == 'SYSDATE':
+    default_query = utils.load_sysdate_example()
+    documentation = [
+        'https://dwgeek.com/netezza-date-functions-examples.html'
+        , 'https://www.ibm.com/docs/en/psfa/7.2.1?topic=reference-functions'
+        ]
+
 if example == 'TO_NUMBER':
     default_query = utils.load_to_number_example()
     documentation = [
-        'https://www.ibm.com/docs/en/psfa/7.2.1?topic=extensions-conversion-functions'
-        , 'https://www.ibm.com/docs/en/psfa/7.2.1?topic=functions-template-patterns-datetime-conversions'
-        , 'https://www.databasestar.com/oracle-to_number/'
-        , 'https://www.youtube.com/watch?v=-qHg-uGhggE'
+        'https://www.ibm.com/docs/en/psfa/7.2.1?topic=constants-data-types-aliases'
         ]
 
 if example == 'TRUNC':
