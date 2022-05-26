@@ -241,6 +241,81 @@ FROM dual'''
 
     return example_query
 
+def load_converted_unpivot() -> str:
+    converted_query = '''-- create data to simulate an unpivot
+WITH survey_table AS (
+SELECT 1 AS participant_id
+    , 'Y' AS q1_answer
+    , 'N' AS q2_answer
+    , 'Y' AS q3_answer
+FROM _v_dual
+
+UNION ALL
+
+SELECT 2 AS participant_id
+    , NULL AS q1_answer
+    , 'Y' AS q2_answer
+    , 'Y' AS q3_answer
+FROM _v_dual
+)
+
+-- netezza friendly way to unpivot
+SELECT participant_id
+    , 'Q1' AS question_num
+    , q1_answer AS question_answer
+FROM survey_table
+WHERE q1_answer IS NOT NULL
+
+UNION ALL 
+
+SELECT participant_id
+    , 'Q2' AS question_num
+    , q2_answer AS question_answer
+FROM survey_table
+WHERE q2_answer IS NOT NULL
+
+UNION ALL 
+
+SELECT participant_id
+    , 'Q3' AS question_num
+    , q3_answer AS question_answer
+FROM survey_table
+WHERE q3_answer IS NOT NULL'''
+    
+    return converted_query
+
+def load_example_unpivot() -> str:
+    example_query = '''-- create data to simulate an unpivot
+WITH survey_table AS (
+SELECT 1 AS participant_id
+    , 'Y' AS q1_answer
+    , 'N' AS q2_answer
+    , 'Y' AS q3_answer
+FROM dual
+
+UNION ALL
+
+SELECT 2 AS participant_id
+    , NULL AS q1_answer
+    , 'Y' AS q2_answer
+    , 'Y' AS q3_answer
+FROM dual
+)
+
+SELECT *
+FROM survey_table
+UNPIVOT EXCLUDE NULLS (
+    question_answer  
+    FOR question_num IN ( 
+        q1_answer AS 'Q1'
+        , q2_answer AS 'Q2'
+        , q3_answer AS 'Q3'
+    )
+)'''
+    
+    return example_query
+
+
 # def run_all(query: str) -> str:
 #     '''
 #     This function runs all the conversion functions

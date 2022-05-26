@@ -1,5 +1,5 @@
 FROM python:3.9-slim
-LABEL org.opencontainers.image.authors="eric.chan.24@gmail.com"
+LABEL org.opencontainers.image.authors="echan@nfa.futures.org"
 WORKDIR /app
 COPY requirements.txt ./requirements.txt
 RUN mkdir ~/.streamlit  

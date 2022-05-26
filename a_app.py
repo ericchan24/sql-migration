@@ -18,7 +18,9 @@ options = [
     , 'PIVOT'
     , 'SYSDATE'
     , 'TO_NUMBER'
-    , 'TRUNC']
+    , 'TRUNC'
+    , 'UNPIVOT'
+]
 
 example = st.sidebar.selectbox(label = 'Examples', options = options)
 
@@ -60,6 +62,13 @@ if example == 'TRUNC':
     netezza_query = utils.load_converted_trunc()
     documentation = [
         'https://www.ibm.com/docs/en/ias?topic=functions-date-trunc'
+        ]
+    
+if example == 'UNPIVOT':
+    oracle_query = utils.load_example_unpivot()
+    netezza_query = utils.load_converted_unpivot()
+    documentation = [
+        'https://www.ibm.com/support/pages/alternative-unpivot-operation-netezza'
         ]
 
 # ---- BODY ----
