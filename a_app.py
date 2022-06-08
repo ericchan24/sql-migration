@@ -14,6 +14,8 @@ st.title('Convert Oracle SQL Queries to Netezza SQL')
 # ---- SIDEBAR ----
 options = [
     ''
+    , 'all_tables'
+    , 'all_tab_columns'
     , 'dual'
     , 'PIVOT'
     , 'SYSDATE'
@@ -25,6 +27,20 @@ options = [
 example = st.sidebar.selectbox(label = 'Examples', options = options)
 
 default_query = ''
+
+if example == 'all_tables':
+    oracle_query = utils.load_example_all_tables()
+    netezza_query = utils.load_converted_all_tables()
+    documentation = [
+        'https://dwgeek.com/netezza-system-tables-views.html'
+        ]
+    
+if example == 'all_tab_columns':
+    oracle_query = utils.load_example_all_tab_columns()
+    netezza_query = utils.load_converted_all_tab_columns()
+    documentation = [
+        'https://dwgeek.com/netezza-system-tables-views.html'
+        ]
 
 if example == 'dual':
     oracle_query = utils.load_example_dual()
