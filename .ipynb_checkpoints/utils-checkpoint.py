@@ -84,7 +84,7 @@ ORDER BY student_id'''
 
     return converted_query
 
-def load_converted_list_agg() -> str:
+def load_example_list_agg() -> str:
     example_query = '''-- create data to simulate LIST_AGG
 WITH major_unpivot AS (
 SELECT 1 AS student_id
