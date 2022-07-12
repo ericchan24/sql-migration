@@ -37,6 +37,92 @@ FROM dual'''
 
     return example_query
 
+# list_agg
+def load_converted_list_agg() -> str:
+    converted_query = '''-- create data to simulate LIST_AGG
+WITH major_unpivot AS (
+SELECT 1 AS student_id
+    , 'English' AS major
+FROM dual
+
+UNION ALL
+
+SELECT 1 AS student_id
+    , 'Economics' AS major
+FROM dual
+
+UNION ALL
+
+SELECT 1 AS student_id
+    , 'Chemistry' AS major
+FROM dual
+
+UNION ALL
+
+SELECT 2 AS student_id
+    , 'Spanish' AS major
+FROM dual
+
+UNION ALL
+
+SELECT 2 AS student_id
+    , 'Biology' AS major
+FROM dual
+)
+
+SELECT student_id
+    , LISTAGG(major, ', ') WITHIN GROUP(ORDER BY major) AS major_list
+FROM major_unpivot
+GROUP BY student_id'''
+
+    return converted_query
+
+def load_example_list_agg() -> str:
+    example_query = '''-- create data to simulate LIST_AGG
+WITH major_unpivot AS (
+SELECT 1 AS student_id
+    , 'English' AS major
+FROM _v_dual
+
+UNION ALL
+
+SELECT 1 AS student_id
+    , 'Economics' AS major
+FROM _v_dual
+
+UNION ALL
+
+SELECT 1 AS student_id
+    , 'Chemistry' AS major
+FROM _v_dual
+
+UNION ALL
+
+SELECT 2 AS student_id
+    , 'Spanish' AS major
+FROM _v_dual
+
+UNION ALL
+
+SELECT 2 AS student_id
+    , 'Biology' AS major
+FROM _v_dual
+)
+
+-- order the major so that the list will be in alphabetical order
+, major_unpivot_ordered AS (
+SELECT student_id, major
+FROM major_unpivot
+ORDER BY student_id, major)
+
+SELECT student_id
+    , REGEXP_REPLACE(GROUP_CONCAT(major), ',', ', ') AS major_list -- use regexp_replace to get the desired formatting
+FROM major_unpivot_ordered
+GROUP BY student_id
+ORDER BY student_id'''
+
+    return example_query
+
 # pivot
 def load_converted_pivot() -> str:
     converted_query = '''-- create data to simulate a pivot

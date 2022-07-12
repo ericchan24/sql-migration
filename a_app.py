@@ -16,6 +16,7 @@ options = [
     ''
     , 'all_tables'
     , 'all_tab_columns'
+    , 'LIST_AGG'
     , 'dual'
     , 'PIVOT'
     , 'SYSDATE'
@@ -56,6 +57,13 @@ if example == 'PIVOT':
     documentation = [
         'https://www.ibm.com/support/pages/netezza-does-not-support-pivot-and-unpivot-operations-sql'
         , 'https://dwgeek.com/netezza-pivot-rows-column-example.html'
+        ]
+    
+if example == 'LIST_AGG':
+    oracle_query = utils.load_example_list_agg()
+    netezza_query = utils.load_converted_list_agg()
+    documentation = [
+        'https://everyething.com/group_concat-in-netezza'
         ]
 
 if example == 'SYSDATE':
